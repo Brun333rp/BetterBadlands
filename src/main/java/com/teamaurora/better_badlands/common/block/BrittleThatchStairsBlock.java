@@ -1,12 +1,12 @@
 package com.teamaurora.better_badlands.common.block;
 
 import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchStairsBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.state.*;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.Half;
+import net.minecraft.state.properties.StairsShape;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -21,6 +21,10 @@ import java.util.Random;
 public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
+    public static final DirectionProperty FACING = StairsBlock.FACING;
+    public static final EnumProperty<Half> HALF = StairsBlock.HALF;
+    public static final EnumProperty<StairsShape> SHAPE = StairsBlock.SHAPE;
+    public static final BooleanProperty WATERLOGGED = StairsBlock.WATERLOGGED;
 
     public BrittleThatchStairsBlock (BlockState state, Properties properties) {
         super(state, properties);
@@ -33,7 +37,7 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder.add(BURN_DISTANCE, BURN_TIMER));
+        builder.add(BURN_DISTANCE, BURN_TIMER, FACING, HALF, SHAPE, WATERLOGGED);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

@@ -4,14 +4,20 @@ import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchSlabBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -21,6 +27,8 @@ import java.util.Random;
 public class BrittleThatchSlabBlock extends ThatchSlabBlock implements IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
+    public static final EnumProperty<SlabType> TYPE = SlabBlock.TYPE;
+    public static final BooleanProperty WATERLOGGED = SlabBlock.WATERLOGGED;
 
     public BrittleThatchSlabBlock(Properties properties) {
         super(properties);
@@ -33,7 +41,7 @@ public class BrittleThatchSlabBlock extends ThatchSlabBlock implements IBrittleT
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder.add(BURN_DISTANCE, BURN_TIMER));
+        builder.add(BURN_DISTANCE, BURN_TIMER, TYPE, WATERLOGGED);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
