@@ -12,34 +12,18 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 @SuppressWarnings("deprecated")
-public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock {
+public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock implements IBrittleThatch {
     public BrittleThatchVerticalSlabBlock (Properties properties) {
         super(properties);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-        boolean flag = false;
-        for (Direction dir : Direction.values()) {
-            if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.LAVA) {
-                flag = true;
-            }
-        }
-        if (flag) {
-            worldIn.destroyBlock(pos, false);
-        }
+        this.onBlockAddedI(state, worldIn, pos, oldState, isMoving);
         super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
     }
 
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        boolean flag = false;
-        for (Direction dir : Direction.values()) {
-            if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.LAVA) {
-                flag = true;
-            }
-        }
-        if (flag) {
-            worldIn.destroyBlock(pos, false);
-        }
+        this.neighborChangedI(state, worldIn, pos, blockIn, fromPos, isMoving);
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
     }
 }
