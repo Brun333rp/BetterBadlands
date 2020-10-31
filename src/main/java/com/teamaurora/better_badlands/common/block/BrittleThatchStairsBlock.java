@@ -31,8 +31,9 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
         return true;
     }
 
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BURN_DISTANCE, BURN_TIMER);
+        super.fillStateContainer(builder.add(BURN_DISTANCE, BURN_TIMER));
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
