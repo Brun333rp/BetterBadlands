@@ -24,6 +24,7 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
 
     public BrittleThatchBlock (Properties properties) {
         super(properties);
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(BURN_TIMER, 0));
     }
 
     @Override

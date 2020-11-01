@@ -29,6 +29,7 @@ public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock impl
 
     public BrittleThatchVerticalSlabBlock (Properties properties) {
         super(properties);
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(BURN_TIMER, 0).with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
     }
 
     @Override
