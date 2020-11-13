@@ -17,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 public interface IBrittleThatch {
-
+    public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
         for (Direction dir : Direction.values()) {
@@ -45,15 +45,9 @@ public interface IBrittleThatch {
     }
 
     default int getDistFromBlockstate(BlockState state) {
-        if (state.getBlock() instanceof BrittleThatchBlock) {
-            return state.get(BrittleThatchBlock.BURN_DISTANCE);
-        } else if (state.getBlock() instanceof BrittleThatchStairsBlock) {
-            return state.get(BrittleThatchStairsBlock.BURN_DISTANCE);
-        } else if (state.getBlock() instanceof BrittleThatchVerticalSlabBlock) {
-            return state.get(BrittleThatchVerticalSlabBlock.BURN_DISTANCE);
-        } else if (state.getBlock() instanceof BrittleThatchSlabBlock) {
-            return state.get(BrittleThatchSlabBlock.BURN_DISTANCE);
-        } else {
+        try {
+            return state.get(BURN_DISTANCE);
+        } catch (IllegalArgumentException e) {
             return 0;
         }
     }
