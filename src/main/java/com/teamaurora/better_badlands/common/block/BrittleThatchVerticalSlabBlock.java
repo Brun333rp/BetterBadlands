@@ -23,7 +23,7 @@ import java.util.Random;
 @SuppressWarnings("deprecated")
 public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock implements IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
+    public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
     public static final EnumProperty<VerticalSlabType> TYPE = VerticalSlabBlock.TYPE;
     public static final BooleanProperty WATERLOGGED = VerticalSlabBlock.WATERLOGGED;
 

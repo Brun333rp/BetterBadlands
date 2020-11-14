@@ -20,7 +20,7 @@ import java.util.Random;
 @SuppressWarnings("deprecated")
 public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
+    public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
     public static final DirectionProperty FACING = StairsBlock.FACING;
     public static final EnumProperty<Half> HALF = StairsBlock.HALF;
     public static final EnumProperty<StairsShape> SHAPE = StairsBlock.SHAPE;

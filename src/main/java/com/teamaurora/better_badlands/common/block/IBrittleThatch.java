@@ -18,6 +18,7 @@ import java.util.Random;
 
 public interface IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
+    public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
         for (Direction dir : Direction.values()) {
@@ -53,41 +54,19 @@ public interface IBrittleThatch {
     }
 
     default IntegerProperty getDistProperty(BlockState state) {
-        if (state.getBlock() instanceof BrittleThatchBlock) {
-            return BrittleThatchBlock.BURN_DISTANCE;
-        } else if (state.getBlock() instanceof BrittleThatchStairsBlock) {
-            return BrittleThatchStairsBlock.BURN_DISTANCE;
-        } else if (state.getBlock() instanceof BrittleThatchVerticalSlabBlock) {
-            return BrittleThatchVerticalSlabBlock.BURN_DISTANCE;
-        } else {
-            return BrittleThatchSlabBlock.BURN_DISTANCE;
-        }
+        return BURN_DISTANCE;
     }
 
     default int getAgeFromBlockstate(BlockState state) {
-        if (state.getBlock() instanceof BrittleThatchBlock) {
-            return state.get(BrittleThatchBlock.BURN_TIMER);
-        } else if (state.getBlock() instanceof BrittleThatchStairsBlock) {
-            return state.get(BrittleThatchStairsBlock.BURN_TIMER);
-        } else if (state.getBlock() instanceof BrittleThatchVerticalSlabBlock) {
-            return state.get(BrittleThatchVerticalSlabBlock.BURN_TIMER);
-        } else if (state.getBlock() instanceof BrittleThatchSlabBlock) {
-            return state.get(BrittleThatchSlabBlock.BURN_TIMER);
-        } else {
+        try {
+            return state.get(BURN_TIMER);
+        } catch (IllegalArgumentException e) {
             return 0;
         }
     }
 
     default IntegerProperty getAgeProperty(BlockState state) {
-        if (state.getBlock() instanceof BrittleThatchBlock) {
-            return BrittleThatchBlock.BURN_TIMER;
-        } else if (state.getBlock() instanceof BrittleThatchStairsBlock) {
-            return BrittleThatchStairsBlock.BURN_TIMER;
-        } else if (state.getBlock() instanceof BrittleThatchVerticalSlabBlock) {
-            return BrittleThatchVerticalSlabBlock.BURN_TIMER;
-        } else {
-            return BrittleThatchSlabBlock.BURN_TIMER;
-        }
+        return BURN_TIMER;
     }
 
     default void tickI(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
