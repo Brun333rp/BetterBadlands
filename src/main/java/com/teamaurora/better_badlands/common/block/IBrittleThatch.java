@@ -4,6 +4,7 @@ import com.teamaurora.better_badlands.core.registry.BetterBadlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TNTBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -23,7 +24,7 @@ import java.util.Random;
 public interface IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
-    static final int TO_SCHEDULE = 20;
+    static final int TO_SCHEDULE = 40;
     //public static final int MAX_TIME = getEquation(21*20);
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
@@ -82,7 +83,7 @@ public interface IBrittleThatch {
     //Idk what's up with the equation really but it's good to have here
     public static int getEquation(int x) {
         int i = 8;
-        return (x * (x / 10)) / (25*i);
+        return (x * (x / 5)) / (25*i);
     }
 
     default int getAgeFromBlockstate(BlockState state) {
@@ -131,6 +132,9 @@ public interface IBrittleThatch {
                             worldIn.setBlockState(pos.offset(dir), stateo.with(getDistProperty(stateo), dist + 1));
                             worldIn.getPendingBlockTicks().scheduleTick(pos.offset(dir), stateo.getBlock(), TO_SCHEDULE);
                         }
+                    } else if (stateo.getBlock() instanceof TNTBlock) {
+                        stateo.getBlock().catchFire(stateo, worldIn, pos.offset(dir), dir, null);
+                        worldIn.setBlockState(pos.offset(dir), Blocks.AIR.getDefaultState());
                     }
                 }
             }
