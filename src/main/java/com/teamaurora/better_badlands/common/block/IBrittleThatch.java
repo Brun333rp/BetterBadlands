@@ -79,7 +79,7 @@ public interface IBrittleThatch {
     }
     //Idk what's up with the equation really but it's good to have here
     public static int getEquation(int x) {
-        int i = 5;
+        int i = 8;
         return (x * (x / 10)) / (25*i);
     }
 
@@ -133,7 +133,7 @@ public interface IBrittleThatch {
             }
             worldIn.setBlockState(pos, state.with(IS_BURNED, true));
             System.out.println(getEquation(dist));
-            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist)*20);
+            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist));
             /*if (age >= (dist - 1) * 6) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             } else {
