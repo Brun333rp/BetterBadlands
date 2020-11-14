@@ -62,10 +62,20 @@ public interface IBrittleThatch {
     default IntegerProperty getDistProperty(BlockState state) {
         return BURN_DISTANCE;
     }
-
+    default void animateTickI(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        if (getDistFromBlockstate(stateIn)>0) {
+            for (int i = 0; i < 20; i++) {
+                double d3 = (double) pos.getX() + rand.nextDouble();
+                double d8 = (double) pos.getY() + rand.nextDouble();
+                double d13 = (double) pos.getZ() + rand.nextDouble();
+                worldIn.addParticle(ParticleTypes.FLAME, d3, d8, d13, 0.0, 0.0, 0.0);
+            }
+        }
+    }
     //Idk what's up with the equation really but it's good to have here
     public static int getEquation(int x) {
-        return (x * (x / 10)) / 25;
+        int i = 5;
+        return (x * (x / 10)) / (25*i);
     }
 
     default int getAgeFromBlockstate(BlockState state) {
@@ -97,14 +107,14 @@ public interface IBrittleThatch {
             double d8 = (double)pos.getY() + rand.nextDouble();
             double d13 = (double)pos.getZ() + rand.nextDouble();
             //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.spawnParticle(ParticleTypes.SMOKE, d3, d8, d13, rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             return;
         }
 
         if (dist > 0) {
-            int age = getAgeFromBlockstate(state) -1;
+            worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             if (dist < 21) {
                 for (Direction dir : Direction.values()) {
                     BlockState stateo = worldIn.getBlockState(pos.offset(dir));

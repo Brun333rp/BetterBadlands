@@ -41,6 +41,12 @@ public class BrittleThatchSlabBlock extends ThatchSlabBlock implements IBrittleT
     }
 
     @Override
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        this.animateTickI(stateIn, worldIn, pos, rand);
+        super.animateTick(stateIn, worldIn, pos, rand);
+    }
+
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BURN_DISTANCE, TYPE, WATERLOGGED, IS_BURNED);
     }

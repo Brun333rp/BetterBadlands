@@ -48,6 +48,12 @@ public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock impl
         super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
     }
 
+    @Override
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        this.animateTickI(stateIn, worldIn, pos, rand);
+        super.animateTick(stateIn, worldIn, pos, rand);
+    }
+
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         this.neighborChangedI(state, worldIn, pos, blockIn, fromPos, isMoving);
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);

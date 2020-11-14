@@ -37,6 +37,12 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
         super.fillStateContainer(builder.add(BURN_DISTANCE, IS_BURNED));
     }
 
+    @Override
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        this.animateTickI(stateIn, worldIn, pos, rand);
+        super.animateTick(stateIn, worldIn, pos, rand);
+    }
+
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         this.onBlockAddedI(state, worldIn, pos, oldState, isMoving);
         super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
