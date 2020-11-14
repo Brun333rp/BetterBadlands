@@ -28,7 +28,7 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
 
     public BrittleThatchStairsBlock (BlockState state, Properties properties) {
         super(state, properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(BURN_TIMER, 0).with(FACING, Direction.NORTH).with(HALF, Half.BOTTOM).with(SHAPE, StairsShape.STRAIGHT).with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, true)/*.with(BURN_TIMER, 0)*/.with(FACING, Direction.NORTH).with(HALF, Half.BOTTOM).with(SHAPE, StairsShape.STRAIGHT).with(WATERLOGGED, Boolean.valueOf(false)));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BURN_DISTANCE, BURN_TIMER, FACING, HALF, SHAPE, WATERLOGGED);
+        builder.add(BURN_DISTANCE, FACING, HALF, SHAPE, WATERLOGGED, IS_BURNED);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

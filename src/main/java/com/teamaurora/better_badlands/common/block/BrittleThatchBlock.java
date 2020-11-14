@@ -24,7 +24,7 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
 
     public BrittleThatchBlock (Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(BURN_TIMER, 0));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, true)/*.with(BURN_TIMER, 0)*/);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder.add(BURN_DISTANCE, BURN_TIMER));
+        super.fillStateContainer(builder.add(BURN_DISTANCE, IS_BURNED));
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

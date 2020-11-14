@@ -24,12 +24,13 @@ import java.util.Random;
 public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock implements IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
     public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
+    public static final BooleanProperty IS_BURNED = IBrittleThatch.IS_BURNED;
     public static final EnumProperty<VerticalSlabType> TYPE = VerticalSlabBlock.TYPE;
     public static final BooleanProperty WATERLOGGED = VerticalSlabBlock.WATERLOGGED;
 
     public BrittleThatchVerticalSlabBlock (Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(BURN_TIMER, 0).with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, true)/*.with(BURN_TIMER, 0)*/.with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock impl
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BURN_DISTANCE, BURN_TIMER, TYPE, WATERLOGGED);
+        builder.add(BURN_DISTANCE, TYPE, WATERLOGGED, IS_BURNED);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

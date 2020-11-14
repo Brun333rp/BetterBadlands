@@ -7,10 +7,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -18,6 +20,9 @@ import java.util.Random;
 
 public interface IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
+    public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
+
+    //public static final int MAX_TIME = getEquation(21*20);
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
@@ -69,15 +74,26 @@ public interface IBrittleThatch {
             return 0;
         }
     }
+    default boolean getBurntFromblockstate(BlockState state) {
+        try {
+            return state.get(IS_BURNED);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 
     default IntegerProperty getAgeProperty(BlockState state) {
         return BURN_TIMER;
     }
 
     default void tickI(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+        if (getBurntFromblockstate(state)) {
+            worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+            return;
+        }
         int dist = getDistFromBlockstate(state);
         if (dist > 0) {
-            int age = getAgeFromBlockstate(state) + 1;
+            int age = getAgeFromBlockstate(state) -1;
             if (dist < 21) {
                 for (Direction dir : Direction.values()) {
                     BlockState stateo = worldIn.getBlockState(pos.offset(dir));
@@ -88,11 +104,13 @@ public interface IBrittleThatch {
                     }
                 }
             }
-            if (age >= (dist - 1) * 6) {
+            worldIn.setBlockState(pos, state.with(IS_BURNED, true));
+            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist));
+            /*if (age >= (dist - 1) * 6) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             } else {
                 worldIn.setBlockState(pos, state.with(getAgeProperty(state), age));
-            }
+            }*/
         }
     }
 
