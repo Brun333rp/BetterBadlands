@@ -71,10 +71,11 @@ public interface IBrittleThatch {
                 double d13 = (double) pos.getZ() + rand.nextDouble();
                 worldIn.addParticle(ParticleTypes.FLAME, d3, d8, d13, 0.0, 0.0, 0.0);
             }
+            if (rand.nextInt(64) == 0) {
+                worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() + 0.5F, false);
+            }
         }
-        if (rand.nextInt(64) == 0) {
-            worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() + 0.5F, false);
-        }
+
     }
     //Idk what's up with the equation really but it's good to have here
     public static int getEquation(int x) {
