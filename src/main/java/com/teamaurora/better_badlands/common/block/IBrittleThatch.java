@@ -13,6 +13,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -103,9 +104,10 @@ public interface IBrittleThatch {
             //worldIn.spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
         }*/
         if (getBurntFromblockstate(state)) {
-            double d3 = (double)pos.getX() + rand.nextDouble() * (double)0.1F;
-            double d8 = (double)pos.getY() + rand.nextDouble();
-            double d13 = (double)pos.getZ() + rand.nextDouble();
+            VoxelShape shapeIn = state.getShape(worldIn, pos);
+            double d3 = (double)pos.getX() + Math.min(shapeIn.getBoundingBox().maxX, rand.nextDouble()) * (double)0.1F;
+            double d8 = (double)pos.getY() + Math.min(shapeIn.getBoundingBox().maxY, rand.nextDouble());
+            double d13 = (double)pos.getZ() + Math.min(shapeIn.getBoundingBox().maxZ, rand.nextDouble());
             //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(ParticleTypes.SMOKE, d3, d8, d13, rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
