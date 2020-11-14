@@ -28,7 +28,7 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
 
     public BrittleThatchStairsBlock (BlockState state, Properties properties) {
         super(state, properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, true)/*.with(BURN_TIMER, 0)*/.with(FACING, Direction.NORTH).with(HALF, Half.BOTTOM).with(SHAPE, StairsShape.STRAIGHT).with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(FACING, Direction.NORTH).with(HALF, Half.BOTTOM).with(SHAPE, StairsShape.STRAIGHT).with(WATERLOGGED, Boolean.valueOf(false)));
     }
 
     @Override

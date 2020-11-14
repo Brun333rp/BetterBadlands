@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.*;
@@ -85,13 +86,23 @@ public interface IBrittleThatch {
     default IntegerProperty getAgeProperty(BlockState state) {
         return BURN_TIMER;
     }
-
     default void tickI(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+        int dist = getDistFromBlockstate(state);
+        /*if (dist > 0) {
+            //System.out.println("Got to line 92");
+            //worldIn.spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+        }*/
         if (getBurntFromblockstate(state)) {
+            double d3 = (double)pos.getX() + rand.nextDouble() * (double)0.1F;
+            double d8 = (double)pos.getY() + rand.nextDouble();
+            double d13 = (double)pos.getZ() + rand.nextDouble();
+            //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.SMOKE, pos.getX(), pos.getY(), pos.getZ(), rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+            worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             return;
         }
-        int dist = getDistFromBlockstate(state);
+
         if (dist > 0) {
             int age = getAgeFromBlockstate(state) -1;
             if (dist < 21) {
@@ -105,7 +116,8 @@ public interface IBrittleThatch {
                 }
             }
             worldIn.setBlockState(pos, state.with(IS_BURNED, true));
-            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist));
+            System.out.println(getEquation(dist));
+            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist)*20);
             /*if (age >= (dist - 1) * 6) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             } else {

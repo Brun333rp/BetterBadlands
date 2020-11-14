@@ -32,7 +32,7 @@ public class BrittleThatchSlabBlock extends ThatchSlabBlock implements IBrittleT
 
     public BrittleThatchSlabBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, true)/*.with(BURN_TIMER, 0)*/.with(TYPE, SlabType.BOTTOM).with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(TYPE, SlabType.BOTTOM).with(WATERLOGGED, Boolean.valueOf(false)));
     }
 
     @Override
