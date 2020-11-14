@@ -33,7 +33,7 @@ public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrit
 
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return false;
     }
 
     @Override

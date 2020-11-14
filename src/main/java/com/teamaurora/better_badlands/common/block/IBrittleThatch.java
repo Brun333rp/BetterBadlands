@@ -23,7 +23,7 @@ import java.util.Random;
 public interface IBrittleThatch {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
-
+    static final int TO_SCHEDULE = 20;
     //public static final int MAX_TIME = getEquation(21*20);
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
@@ -35,6 +35,8 @@ public interface IBrittleThatch {
         }
         if (flag) {
             worldIn.destroyBlock(pos, false);
+        } else {
+            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), TO_SCHEDULE);
         }
         //super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
     }
@@ -127,6 +129,7 @@ public interface IBrittleThatch {
                     if (stateo.getBlock() instanceof IBrittleThatch) {
                         if (getDistFromBlockstate(stateo) == 0) {
                             worldIn.setBlockState(pos.offset(dir), stateo.with(getDistProperty(stateo), dist + 1));
+                            worldIn.getPendingBlockTicks().scheduleTick(pos.offset(dir), stateo.getBlock(), TO_SCHEDULE);
                         }
                     }
                 }

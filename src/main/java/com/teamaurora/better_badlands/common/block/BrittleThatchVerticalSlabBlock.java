@@ -35,7 +35,7 @@ public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock impl
 
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return false;
     }
 
     @Override

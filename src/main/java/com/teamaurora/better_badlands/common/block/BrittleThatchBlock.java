@@ -29,7 +29,7 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
 
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return false;
     }
 
     @Override
