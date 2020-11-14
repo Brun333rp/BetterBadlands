@@ -1,11 +1,12 @@
 package com.teamaurora.better_badlands.common.block;
 
-import com.teamaurora.better_badlands.core.registry.BetterBadlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TNTBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -15,17 +16,26 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public interface IBrittleThatch {
+public interface IKindling {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
-    static final int TO_SCHEDULE = 40;
+    static final int TO_SCHEDULE = 30;
     //public static final int MAX_TIME = getEquation(21*20);
+    default void onProjectileCollisionI(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        if (!worldIn.isRemote) {
+            Entity entity = projectile.func_234616_v_();
+            if (projectile.isBurning()) {
+                BlockPos blockpos = hit.getPos();
+                worldIn.setBlockState(hit.getPos(), state.with(getDistProperty(state),1));
+            }
+        }
+
+    }
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
@@ -127,7 +137,7 @@ public interface IBrittleThatch {
             if (dist < 21) {
                 for (Direction dir : Direction.values()) {
                     BlockState stateo = worldIn.getBlockState(pos.offset(dir));
-                    if (stateo.getBlock() instanceof IBrittleThatch) {
+                    if (stateo.getBlock() instanceof IKindling) {
                         if (getDistFromBlockstate(stateo) == 0) {
                             worldIn.setBlockState(pos.offset(dir), stateo.with(getDistProperty(stateo), dist + 1));
                             worldIn.getPendingBlockTicks().scheduleTick(pos.offset(dir), stateo.getBlock(), TO_SCHEDULE);

@@ -4,14 +4,13 @@ import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
 import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchVerticalSlabBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -21,16 +20,22 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 @SuppressWarnings("deprecated")
-public class BrittleThatchVerticalSlabBlock extends ThatchVerticalSlabBlock implements IBrittleThatch {
-    public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
-    public static final BooleanProperty IS_BURNED = IBrittleThatch.IS_BURNED;
+public class KindlingVerticalSlabBlock extends ThatchVerticalSlabBlock implements IKindling {
+    public static final IntegerProperty BURN_DISTANCE = IKindling.BURN_DISTANCE;
+    public static final IntegerProperty BURN_TIMER = IKindling.BURN_TIMER;
+    public static final BooleanProperty IS_BURNED = IKindling.IS_BURNED;
     public static final EnumProperty<VerticalSlabType> TYPE = VerticalSlabBlock.TYPE;
     public static final BooleanProperty WATERLOGGED = VerticalSlabBlock.WATERLOGGED;
 
-    public BrittleThatchVerticalSlabBlock (Properties properties) {
+    public KindlingVerticalSlabBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
+    }
+
+    @Override
+    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        this.onProjectileCollisionI(worldIn, state, hit, projectile);
+        super.onProjectileCollision(worldIn, state, hit, projectile);
     }
 
     @Override

@@ -1,18 +1,11 @@
 package com.teamaurora.better_badlands.core.registry;
 
-import com.teamabnormals.abnormals_core.common.blocks.AbnormalsStairsBlock;
-import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchBlock;
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchSlabBlock;
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchStairsBlock;
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchVerticalSlabBlock;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 import com.teamaurora.better_badlands.common.block.*;
 import com.teamaurora.better_badlands.core.BetterBadlands;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SlabBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
@@ -24,10 +17,10 @@ import net.minecraftforge.fml.common.Mod;
 public class BetterBadlandsBlocks {
     public static final RegistryHelper HELPER = BetterBadlands.REGISTRY_HELPER;
 
-    public static final RegistryObject<Block> DEAD_BUSH_THATCH = HELPER.createBlock("dead_bush_thatch", () -> new BrittleThatchBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
-    public static final RegistryObject<Block> DEAD_BUSH_THATCH_SLAB = HELPER.createBlock("dead_bush_thatch_slab", () -> new BrittleThatchSlabBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
-    public static final RegistryObject<Block> DEAD_BUSH_THATCH_STAIRS = HELPER.createBlock("dead_bush_thatch_stairs", () -> new BrittleThatchStairsBlock(DEAD_BUSH_THATCH.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
-    public static final RegistryObject<Block> DEAD_BUSH_THATCH_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "dead_bush_thatch_vertical_slab", () -> new BrittleThatchVerticalSlabBlock(AbstractBlock.Properties.from(DEAD_BUSH_THATCH.get()).notSolid()), ItemGroup.BUILDING_BLOCKS);
+    public static final RegistryObject<Block> KINDLING = HELPER.createBlock("kindling", () -> new KindlingBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
+    public static final RegistryObject<Block> KINDLING_SLAB = HELPER.createBlock("kindling_slab", () -> new KindlingSlabBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
+    public static final RegistryObject<Block> KINDLING_STAIRS = HELPER.createBlock("kindling_stairs", () -> new KindlingStairsBlock(KINDLING.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
+    public static final RegistryObject<Block> KINDLING_VERTICAL_SLAB = HELPER.createCompatBlock("quark", "kindling_vertical_slab", () -> new KindlingVerticalSlabBlock(AbstractBlock.Properties.from(KINDLING.get()).notSolid()), ItemGroup.BUILDING_BLOCKS);
 
     // brother may i have L A M P
     public static final RegistryObject<Block> TERRACOTTA_LAMP_LIGHT_SOURCE = HELPER.createBlock("light_source", ()->new MagicInvisibleLightBlock(AbstractBlock.Properties.create(Material.AIR).setLightLevel((a)->{return 13;})), null);
