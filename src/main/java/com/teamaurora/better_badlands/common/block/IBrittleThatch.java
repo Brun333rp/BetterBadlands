@@ -57,6 +57,11 @@ public interface IBrittleThatch {
         return BURN_DISTANCE;
     }
 
+    //Idk what's up with the equation really but it's good to have here
+    public static int getEquation(int x) {
+        return (x * (x / 10)) / 25;
+    }
+
     default int getAgeFromBlockstate(BlockState state) {
         try {
             return state.get(BURN_TIMER);
@@ -94,7 +99,7 @@ public interface IBrittleThatch {
     default ActionResultType onBlockActivatedI(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         Item item = player.getHeldItem(handIn).getItem();
         if (item == Items.FLINT_AND_STEEL || item == Items.FIRE_CHARGE) {
-            worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
+            worldIn.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             worldIn.setBlockState(pos, state.with(getDistProperty(state),1));
             return ActionResultType.func_233537_a_(worldIn.isRemote);
         }
