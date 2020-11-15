@@ -13,13 +13,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-@Mod.EventBusSubscriber(modid=BetterBadlands.MODID)
 public class BetterBadlandsParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BetterBadlands.MODID);
     public static final RegistryObject<BasicParticleType> TWIG = PARTICLES.register("twig", ()->new BasicParticleType(false));
-    @SubscribeEvent
-    public static void registerParticles(ParticleFactoryRegisterEvent event) {
-        ParticleManager particleManagerIn = Minecraft.getInstance().particles;
-        particleManagerIn.registerFactory(TWIG.get(), TwigParticle.Factory::new);
-    }
+
 }
