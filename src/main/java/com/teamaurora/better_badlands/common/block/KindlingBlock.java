@@ -1,14 +1,13 @@
 package com.teamaurora.better_badlands.common.block;
 
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchStairsBlock;
-import net.minecraft.block.*;
+import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.*;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.Half;
-import net.minecraft.state.properties.StairsShape;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -18,27 +17,27 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 @SuppressWarnings("deprecated")
-public class BrittleThatchStairsBlock extends ThatchStairsBlock implements IBrittleThatch {
-    public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
-    public static final DirectionProperty FACING = StairsBlock.FACING;
-    public static final EnumProperty<Half> HALF = StairsBlock.HALF;
-    public static final EnumProperty<StairsShape> SHAPE = StairsBlock.SHAPE;
-    public static final BooleanProperty WATERLOGGED = StairsBlock.WATERLOGGED;
+public class KindlingBlock extends ThatchBlock implements IKindling {
+    public static final IntegerProperty BURN_DISTANCE = IKindling.BURN_DISTANCE;
+    public static final IntegerProperty BURN_TIMER = IKindling.BURN_TIMER;
 
-    public BrittleThatchStairsBlock (BlockState state, Properties properties) {
-        super(state, properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(FACING, Direction.NORTH).with(HALF, Half.BOTTOM).with(SHAPE, StairsShape.STRAIGHT).with(WATERLOGGED, Boolean.valueOf(false)));
+    public KindlingBlock(Properties properties) {
+        super(properties);
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/);
     }
-
+    @Override
+    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        this.onProjectileCollisionI(worldIn, state, hit, projectile);
+        super.onProjectileCollision(worldIn, state, hit, projectile);
+    }
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return false;
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BURN_DISTANCE, FACING, HALF, SHAPE, WATERLOGGED, IS_BURNED);
+        super.fillStateContainer(builder.add(BURN_DISTANCE, IS_BURNED));
     }
 
     @Override

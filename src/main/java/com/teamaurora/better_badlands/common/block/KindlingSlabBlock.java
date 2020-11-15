@@ -1,14 +1,17 @@
 package com.teamaurora.better_badlands.common.block;
 
-import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchBlock;
+import com.teamabnormals.abnormals_core.common.blocks.thatch.ThatchSlabBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -18,29 +21,35 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 @SuppressWarnings("deprecated")
-public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
-    public static final IntegerProperty BURN_DISTANCE = IBrittleThatch.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IBrittleThatch.BURN_TIMER;
+public class KindlingSlabBlock extends ThatchSlabBlock implements IKindling {
+    public static final IntegerProperty BURN_DISTANCE = IKindling.BURN_DISTANCE;
+    public static final IntegerProperty BURN_TIMER = IKindling.BURN_TIMER;
+    public static final EnumProperty<SlabType> TYPE = SlabBlock.TYPE;
+    public static final BooleanProperty WATERLOGGED = SlabBlock.WATERLOGGED;
 
-    public BrittleThatchBlock (Properties properties) {
+    public KindlingSlabBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/);
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(TYPE, SlabType.BOTTOM).with(WATERLOGGED, Boolean.valueOf(false)));
     }
-
+    @Override
+    public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        this.onProjectileCollisionI(worldIn, state, hit, projectile);
+        super.onProjectileCollision(worldIn, state, hit, projectile);
+    }
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
-    }
-
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder.add(BURN_DISTANCE, IS_BURNED));
+        return false;
     }
 
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         this.animateTickI(stateIn, worldIn, pos, rand);
         super.animateTick(stateIn, worldIn, pos, rand);
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(BURN_DISTANCE, TYPE, WATERLOGGED, IS_BURNED);
     }
 
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
@@ -61,4 +70,5 @@ public class BrittleThatchBlock extends ThatchBlock implements IBrittleThatch {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         return this.onBlockActivatedI(state, worldIn, pos, player, handIn, hit);
     }
+
 }

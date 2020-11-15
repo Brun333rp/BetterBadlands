@@ -1,10 +1,12 @@
 package com.teamaurora.better_badlands.common.block;
 
-import com.teamaurora.better_badlands.core.registry.BetterBadlandsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TNTBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -14,17 +16,26 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public interface IBrittleThatch {
+public interface IKindling {
     public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
     public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
-
+    static final int TO_SCHEDULE = 30;
     //public static final int MAX_TIME = getEquation(21*20);
+    default void onProjectileCollisionI(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+        if (!worldIn.isRemote) {
+            Entity entity = projectile.func_234616_v_();
+            if (projectile.isBurning()) {
+                BlockPos blockpos = hit.getPos();
+                worldIn.setBlockState(hit.getPos(), state.with(getDistProperty(state),1));
+            }
+        }
+
+    }
     public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
@@ -35,6 +46,8 @@ public interface IBrittleThatch {
         }
         if (flag) {
             worldIn.destroyBlock(pos, false);
+        } else {
+            worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), TO_SCHEDULE);
         }
         //super.onBlockAdded(state, worldIn, pos, oldState, isMoving);
     }
@@ -66,10 +79,16 @@ public interface IBrittleThatch {
     default void animateTickI(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (getDistFromBlockstate(stateIn)>0) {
             for (int i = 0; i < 20; i++) {
-                double d3 = (double) pos.getX() + rand.nextDouble();
-                double d8 = (double) pos.getY() + rand.nextDouble();
-                double d13 = (double) pos.getZ() + rand.nextDouble();
+                double d3 = (double) pos.getX() + rand.nextDouble() + (rand.nextDouble()/6);
+                double d8 = (double) pos.getY() + rand.nextDouble() + (rand.nextDouble()/6);
+                double d13 = (double) pos.getZ() + rand.nextDouble() + (rand.nextDouble()/6);
                 worldIn.addParticle(ParticleTypes.FLAME, d3, d8, d13, 0.0, 0.0, 0.0);
+            }
+            for (int i = 0; i < 20; i++) {
+                double d3 = (double) pos.getX() + rand.nextDouble() + (rand.nextDouble()/6);
+                double d8 = (double) pos.getY() + rand.nextDouble() + (rand.nextDouble()/6);
+                double d13 = (double) pos.getZ() + rand.nextDouble() + (rand.nextDouble()/6);
+                worldIn.addParticle(ParticleTypes.SMOKE, d3, d8, d13, 0.0, 0.0, 0.0);
             }
             if (rand.nextInt(64) == 0) {
                 worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, rand.nextFloat() * 0.25F + 0.75F, rand.nextFloat() + 0.5F, false);
@@ -80,7 +99,7 @@ public interface IBrittleThatch {
     //Idk what's up with the equation really but it's good to have here
     public static int getEquation(int x) {
         int i = 8;
-        return (x * (x / 10)) / (25*i);
+        return (x * (x / 5)) / (25*i);
     }
 
     default int getAgeFromBlockstate(BlockState state) {
@@ -113,7 +132,7 @@ public interface IBrittleThatch {
             double d8 = (double)pos.getY() + Math.min(shapeIn.getBoundingBox().maxY, rand.nextDouble());
             double d13 = (double)pos.getZ() + Math.min(shapeIn.getBoundingBox().maxZ, rand.nextDouble());
             //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(ParticleTypes.SMOKE, d3, d8, d13, rand.nextInt(5)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(4)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             return;
@@ -124,10 +143,14 @@ public interface IBrittleThatch {
             if (dist < 21) {
                 for (Direction dir : Direction.values()) {
                     BlockState stateo = worldIn.getBlockState(pos.offset(dir));
-                    if (stateo.getBlock() instanceof IBrittleThatch) {
+                    if (stateo.getBlock() instanceof IKindling) {
                         if (getDistFromBlockstate(stateo) == 0) {
                             worldIn.setBlockState(pos.offset(dir), stateo.with(getDistProperty(stateo), dist + 1));
+                            worldIn.getPendingBlockTicks().scheduleTick(pos.offset(dir), stateo.getBlock(), TO_SCHEDULE);
                         }
+                    } else if (stateo.getBlock() instanceof TNTBlock) {
+                        stateo.getBlock().catchFire(stateo, worldIn, pos.offset(dir), dir, null);
+                        worldIn.setBlockState(pos.offset(dir), Blocks.AIR.getDefaultState());
                     }
                 }
             }
