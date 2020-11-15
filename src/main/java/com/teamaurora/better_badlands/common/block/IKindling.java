@@ -117,7 +117,6 @@ public interface IKindling {
             return false;
         }
     }
-
     default IntegerProperty getAgeProperty(BlockState state) {
         return BURN_TIMER;
     }
@@ -136,6 +135,14 @@ public interface IKindling {
             worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(15)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
+
+            for (Direction direction : Direction.values()) {
+                BlockState stateo = worldIn.getBlockState(pos.offset(direction));
+                if (stateo.getBlock().isFlammable(stateo, worldIn, pos, direction)) {
+                    stateo.getBlock().catchFire(stateo, worldIn, pos, direction, null);
+                    worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState());
+                }
+            }
             return;
         }
 
