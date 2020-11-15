@@ -3,7 +3,7 @@ package com.teamaurora.better_badlands.core;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 import com.teamaurora.better_badlands.core.other.BetterBadlandsData;
 import com.teamaurora.better_badlands.core.other.BetterBadlandsEvents;
-import com.teamaurora.better_badlands.core.other.BetterBadlandsRender;
+import com.teamaurora.better_badlands.client.ClientRegister;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsFeatures;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,7 +19,6 @@ import static com.teamaurora.better_badlands.core.BetterBadlands.MODID;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MODID)
-@Mod.EventBusSubscriber(modid = MODID)
 @SuppressWarnings("deprecation")
 public class BetterBadlands
 {
@@ -38,9 +37,6 @@ public class BetterBadlands
         MinecraftForge.EVENT_BUS.register(this);
 
         eventBus.addListener(this::commonSetup);
-        DistExecutor.runWhenOn(Dist.CLIENT, ()->()-> {
-            eventBus.addListener(this::clientSetup);
-        });
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -48,12 +44,6 @@ public class BetterBadlands
         DeferredWorkQueue.runLater(() -> {
             BetterBadlandsData.registerFlammables();
             BetterBadlandsFeatures.generateFeatures();
-        });
-    }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
-        DeferredWorkQueue.runLater(() -> {
-            BetterBadlandsRender.setupRenderLayer();
         });
     }
 }
