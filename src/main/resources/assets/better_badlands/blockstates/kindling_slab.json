@@ -1,7 +1,7 @@
 {
   "variants": {
-    "type=bottom": { "model": "better_badlands:block/dead_bush_thatch_slab" },
-    "type=top": { "model": "better_badlands:block/dead_bush_thatch_slab_top" },
-    "type=double": { "model": "better_badlands:block/dead_bush_thatch" }
+    "type=bottom": { "model": "better_badlands:block/kindling_slab" },
+    "type=top": { "model": "better_badlands:block/kindling_slab_top" },
+    "type=double": { "model": "better_badlands:block/kindling" }
   }
 }
