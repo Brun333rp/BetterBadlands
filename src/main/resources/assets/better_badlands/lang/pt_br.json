@@ -1,9 +1,9 @@
 {
   "_comment": "Dead Bush Thatch Stuff",
-  "block.better_badlands.dead_bush_thatch": "Palha de arbusto seco",
-  "block.better_badlands.dead_bush_thatch_slab": "Laje de palha de arbusto seco",
-  "block.better_badlands.dead_bush_thatch_stairs": "Escadas de palha de arbusto seco",
-  "block.better_badlands.dead_bush_thatch_vertical_slab": "Laje vertical de palha de arbusto seco",
+  "block.better_badlands.kindling": "Palha de arbusto seco",
+  "block.better_badlands.kindling_slab": "Laje de palha de arbusto seco",
+  "block.better_badlands.kindling_stairs": "Escadas de palha de arbusto seco",
+  "block.better_badlands.kindling_vertical_slab": "Laje vertical de palha de arbusto seco",
 
   "_comment1": "Welcome to Terracotta Hell",
   "block.better_badlands.terracotta_slab": "Laje de terracota",

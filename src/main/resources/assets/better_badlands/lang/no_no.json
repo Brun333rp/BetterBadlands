@@ -1,9 +1,9 @@
 {
   "_comment": "Dead Bush Thatch",
-  "block.better_badlands.dead_bush_thatch": "Tørrkvist-tekke",
-  "block.better_badlands.dead_bush_thatch_slab": "Tørrkvist-tekkehelle",
-  "block.better_badlands.dead_bush_thatch_stairs": "Tørrkvist-tekketrapp",
-  "block.better_badlands.dead_bush_thatch_vertical_slab": "Vertikal tørrkvist-tekkehelle",
+  "block.better_badlands.kindling": "Tørrkvist",
+  "block.better_badlands.kindling_slab": "Tørrkvisthelle",
+  "block.better_badlands.kindling_stairs": "Tørrkvisttrapp",
+  "block.better_badlands.kindling_vertical_slab": "Vertikal tørrkvisthelle",
 
   "_comment1": "Terracotta Lamps",
   "block.better_badlands.light_source": "Lyskilde",
