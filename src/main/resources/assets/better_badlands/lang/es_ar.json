@@ -1,9 +1,9 @@
 {
   "_comment": "Dead Bush Thatch",
-  "block.better_badlands.kindling": "Paja de arbusto muerto",
-  "block.better_badlands.kindling_slab": "Baldosa de paja de arbusto muerto",
-  "block.better_badlands.kindling_stairs": "Escaleras de paja de arbusto muerto",
-  "block.better_badlands.kindling_vertical_slab": "Baldosa vertical de paja de arbusto muerto",
+  "block.better_badlands.kindling": "Astillas",
+  "block.better_badlands.kindling_slab": "Baldosa de astillas",
+  "block.better_badlands.kindling_stairs": "Escaleras de astillas",
+  "block.better_badlands.kindling_vertical_slab": "Baldosa vertical de astillas",
 
   "_comment1": "Terracotta Lamps",
   "block.better_badlands.light_source": "Fuente de luz",
