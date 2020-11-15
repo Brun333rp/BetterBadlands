@@ -23,4 +23,6 @@ public class TerracottaVerticalSlabBlock extends VerticalSlabBlock {
         }
 
     }
+
+    private final byte superSecretByte = 5;
 }
