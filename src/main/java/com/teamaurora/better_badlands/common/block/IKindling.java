@@ -132,8 +132,8 @@ public interface IKindling {
             double d3 = (double)pos.getX() + Math.min(shapeIn.getBoundingBox().maxX, rand.nextDouble()) * (double)0.1F;
             double d8 = (double)pos.getY() + Math.min(shapeIn.getBoundingBox().maxY, rand.nextDouble());
             double d13 = (double)pos.getZ() + Math.min(shapeIn.getBoundingBox().maxZ, rand.nextDouble());
-            //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
-            //worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(5)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
+            worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(5)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.spawnParticle(BetterBadlandsParticles.TWIG.get(), d3, d8, d13, rand.nextInt(10)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
 
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -166,7 +166,6 @@ public interface IKindling {
                 }
             }
             worldIn.setBlockState(pos, state.with(IS_BURNED, true));
-            System.out.println(getEquation(dist));
             worldIn.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), getEquation(dist));
             /*if (age >= (dist - 1) * 6) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());

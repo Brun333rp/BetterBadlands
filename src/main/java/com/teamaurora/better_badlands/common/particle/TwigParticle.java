@@ -10,6 +10,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class TwigParticle extends SpriteTexturedParticle {
     protected TwigParticle(ClientWorld p_i232447_1_, double p_i232447_2_, double p_i232447_4_, double p_i232447_6_) {
         super(p_i232447_1_, p_i232447_2_, p_i232447_4_, p_i232447_6_);
+        this.motionX *= (double)0.8F;
+        this.motionY *= (double)0.8F;
+        this.motionZ *= (double)0.8F;
+        this.motionY = (double)(this.rand.nextFloat() * 0.4F + 0.05F);
+        this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
+        this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
     }
 
     protected TwigParticle(ClientWorld p_i232448_1_, double p_i232448_2_, double p_i232448_4_, double p_i232448_6_, double p_i232448_8_, double p_i232448_10_, double p_i232448_12_) {
@@ -28,8 +34,8 @@ public class TwigParticle extends SpriteTexturedParticle {
     }
 
     public float getScale(float scaleFactor) {
-        float f = ((float)this.age + scaleFactor) / (float)this.maxAge;
-        return this.particleScale * (1.0F - f * f);
+        //float f = ((float)this.age + scaleFactor) / (float)this.maxAge;
+        return this.particleScale;
     }
 
     public void tick() {
@@ -37,7 +43,7 @@ public class TwigParticle extends SpriteTexturedParticle {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         float f = (float)this.age / (float)this.maxAge;
-        if (this.rand.nextFloat() > f) {
+        if (0.75 < f && (rand.nextInt(15)==0)) {
             this.world.addParticle(ParticleTypes.SMOKE, this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ);
         }
 
