@@ -5,6 +5,7 @@ import com.teamaurora.better_badlands.core.other.BetterBadlandsData;
 import com.teamaurora.better_badlands.core.other.BetterBadlandsEvents;
 import com.teamaurora.better_badlands.client.ClientRegister;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsFeatures;
+import com.teamaurora.better_badlands.core.registry.BetterBadlandsParticles;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -33,7 +34,7 @@ public class BetterBadlands
         REGISTRY_HELPER.getDeferredEntityRegister().register(eventBus);
 
         BetterBadlandsFeatures.FEATURES.register(eventBus);
-
+        BetterBadlandsParticles.PARTICLES.register(eventBus);
         MinecraftForge.EVENT_BUS.register(this);
 
         eventBus.addListener(this::commonSetup);

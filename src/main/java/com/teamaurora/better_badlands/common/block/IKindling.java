@@ -1,5 +1,6 @@
 package com.teamaurora.better_badlands.common.block;
 
+import com.teamaurora.better_badlands.core.registry.BetterBadlandsParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -132,7 +133,9 @@ public interface IKindling {
             double d8 = (double)pos.getY() + Math.min(shapeIn.getBoundingBox().maxY, rand.nextDouble());
             double d13 = (double)pos.getZ() + Math.min(shapeIn.getBoundingBox().maxZ, rand.nextDouble());
             //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(15)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(5)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.spawnParticle(BetterBadlandsParticles.TWIG.get(), d3, d8, d13, rand.nextInt(10)+5, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
 
