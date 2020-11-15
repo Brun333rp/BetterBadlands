@@ -3,7 +3,6 @@
   "credit": "Made with Blockbench",
   "textures": {
     "thatch": "better_badlands:block/dead_bush_thatch",
-    "extrudes": "better_badlands:block/dead_bush_thatch_extrudes",
     "particle": "better_badlands:block/dead_bush_thatch"
   },
   "elements": [
