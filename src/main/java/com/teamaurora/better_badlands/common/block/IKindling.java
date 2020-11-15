@@ -79,9 +79,9 @@ public interface IKindling {
     default void animateTickI(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (getDistFromBlockstate(stateIn)>0) {
             for (int i = 0; i < 20; i++) {
-                double d3 = (double) pos.getX() + rand.nextDouble();
-                double d8 = (double) pos.getY() + rand.nextDouble();
-                double d13 = (double) pos.getZ() + rand.nextDouble();
+                double d3 = (double) pos.getX() + (rand.nextDouble()/8);
+                double d8 = (double) pos.getY() + (rand.nextDouble()/8);
+                double d13 = (double) pos.getZ() + (rand.nextDouble()/8);
                 worldIn.addParticle(ParticleTypes.FLAME, d3, d8, d13, 0.0, 0.0, 0.0);
             }
             if (rand.nextInt(64) == 0) {
