@@ -18,9 +18,9 @@ public class ClientRegister {
     }
 
     private static void setupRenderLayer() {
-        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.DEAD_BUSH_THATCH.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.DEAD_BUSH_THATCH_SLAB.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.DEAD_BUSH_THATCH_STAIRS.get(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.DEAD_BUSH_THATCH_VERTICAL_SLAB.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_SLAB.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_STAIRS.get(), RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_VERTICAL_SLAB.get(), RenderType.getCutoutMipped());
     }
 }
