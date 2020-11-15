@@ -132,7 +132,7 @@ public interface IKindling {
             double d8 = (double)pos.getY() + Math.min(shapeIn.getBoundingBox().maxY, rand.nextDouble());
             double d13 = (double)pos.getZ() + Math.min(shapeIn.getBoundingBox().maxZ, rand.nextDouble());
             //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, d3, d8, d13, 0.0D, 0.0D, 0.0D);
-            worldIn.spawnParticle(ParticleTypes.SMOKE, d3, d8, d13, rand.nextInt(4)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
+            worldIn.spawnParticle(ParticleTypes.LAVA, d3, d8, d13, rand.nextInt(4)+1, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0);
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
             worldIn.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.PLAYERS, 1.0F, worldIn.rand.nextFloat() * 0.4F + 0.8F);
             return;
