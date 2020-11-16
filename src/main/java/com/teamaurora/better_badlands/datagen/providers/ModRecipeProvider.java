@@ -8,6 +8,7 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -81,8 +82,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .patternLine(" # ")
                 .patternLine("#X#")
                 .patternLine(" # ")
-                .key('#', Blocks.LANTERN)
-                .key('X', terracottaType)
+                .key('X', Blocks.LANTERN)
+                .key('#', terracottaType)
                 .build(consumer);
     }
 }

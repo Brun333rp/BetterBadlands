@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "better_badlands:dead_bush_thatch"
+      "item": "better_badlands:kindling"
     }
   },
   "result": {
-    "item": "better_badlands:dead_bush_thatch_stairs",
+    "item": "better_badlands:kindling_stairs",
     "count": 4
   }
 }
