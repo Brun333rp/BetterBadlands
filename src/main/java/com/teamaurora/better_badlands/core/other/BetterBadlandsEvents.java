@@ -23,6 +23,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = BetterBadlands.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BetterBadlandsEvents {
+
     @SubscribeEvent
     public void onSaplingGrowTree (SaplingGrowTreeEvent event) {
         if (event.getWorld() instanceof ServerWorld) {
@@ -46,10 +47,5 @@ public class BetterBadlandsEvents {
                 }
             }
         }
-    }
-    @SubscribeEvent
-    public static void registerParticles(ParticleFactoryRegisterEvent event) {
-        ParticleManager particleManagerIn = Minecraft.getInstance().particles;
-        particleManagerIn.registerFactory(BetterBadlandsParticles.TWIG.get(), TwigParticle.Factory::new);
     }
 }
