@@ -1,19 +1,14 @@
 package com.teamaurora.better_badlands.core.other;
 
-import com.teamaurora.better_badlands.common.particle.TwigParticle;
 import com.teamaurora.better_badlands.common.world.biome.BetterBadlandsBiomeFeatures;
 import com.teamaurora.better_badlands.core.BetterBadlands;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsFeatures;
-import com.teamaurora.better_badlands.core.registry.BetterBadlandsParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.world.SaplingGrowTreeEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +18,7 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = BetterBadlands.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BetterBadlandsEvents {
+
     @SubscribeEvent
     public void onSaplingGrowTree (SaplingGrowTreeEvent event) {
         if (event.getWorld() instanceof ServerWorld) {
@@ -46,10 +42,5 @@ public class BetterBadlandsEvents {
                 }
             }
         }
-    }
-    @SubscribeEvent
-    public static void registerParticles(ParticleFactoryRegisterEvent event) {
-        ParticleManager particleManagerIn = Minecraft.getInstance().particles;
-        particleManagerIn.registerFactory(BetterBadlandsParticles.TWIG.get(), TwigParticle.Factory::new);
     }
 }
