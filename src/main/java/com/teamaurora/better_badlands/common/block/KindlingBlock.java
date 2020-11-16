@@ -18,12 +18,10 @@ import java.util.Random;
 
 @SuppressWarnings("deprecated")
 public class KindlingBlock extends ThatchBlock implements IKindling {
-    public static final IntegerProperty BURN_DISTANCE = IKindling.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IKindling.BURN_TIMER;
 
     public KindlingBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/);
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false));
     }
     @Override
     public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
