@@ -144,6 +144,9 @@ public interface IKindling {
                 if (stateo.getBlock().isFlammable(stateo, worldIn, pos, direction)) {
                     stateo.getBlock().catchFire(stateo, worldIn, pos, direction, null);
                     worldIn.setBlockState(pos, Blocks.FIRE.getDefaultState());
+                    if (stateo.getBlock() instanceof TNTBlock) {
+                        worldIn.setBlockState(pos.offset(direction), Blocks.AIR.getDefaultState());
+                    }
                 }
             }
             return;
