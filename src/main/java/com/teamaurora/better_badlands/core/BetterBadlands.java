@@ -35,7 +35,6 @@ public class BetterBadlands
 
         BetterBadlandsFeatures.FEATURES.register(eventBus);
         BetterBadlandsParticles.PARTICLES.register(eventBus);
-        MinecraftForge.EVENT_BUS.register(this);
 
         eventBus.addListener(this::commonSetup);
     }
