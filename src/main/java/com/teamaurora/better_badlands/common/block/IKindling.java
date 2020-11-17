@@ -23,10 +23,11 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 public interface IKindling {
-    public static final IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
-    public static final BooleanProperty IS_BURNED = BooleanProperty.create("burned");
-    static final int TO_SCHEDULE = 30;
+    IntegerProperty BURN_DISTANCE = IntegerProperty.create("burn_distance", 0, 21);
+    BooleanProperty IS_BURNED = BooleanProperty.create("burned");
+    int TO_SCHEDULE = 30;
     //public static final int MAX_TIME = getEquation(21*20);
+
     default void onProjectileCollisionI(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
         if (!worldIn.isRemote) {
             Entity entity = projectile.func_234616_v_();
@@ -35,9 +36,8 @@ public interface IKindling {
                 worldIn.setBlockState(hit.getPos(), state.with(getDistProperty(state),1));
             }
         }
-
     }
-    public static final IntegerProperty BURN_TIMER = IntegerProperty.create("burn_timer", 0, 120);
+
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
         for (Direction dir : Direction.values()) {
@@ -77,6 +77,7 @@ public interface IKindling {
     default IntegerProperty getDistProperty(BlockState state) {
         return BURN_DISTANCE;
     }
+
     default void animateTickI(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (getDistFromBlockstate(stateIn)>0) {
             for (int i = 0; i < 20; i++) {
@@ -99,18 +100,11 @@ public interface IKindling {
 
     }
     //Idk what's up with the equation really but it's good to have here
-    public static int getEquation(int x) {
+    static int getEquation(int x) {
         int i = 8;
         return (x * (x / 5)) / (25*i);
     }
 
-    default int getAgeFromBlockstate(BlockState state) {
-        try {
-            return state.get(BURN_TIMER);
-        } catch (IllegalArgumentException e) {
-            return 0;
-        }
-    }
     default boolean getBurntFromblockstate(BlockState state) {
         try {
             return state.get(IS_BURNED);
@@ -118,9 +112,7 @@ public interface IKindling {
             return false;
         }
     }
-    default IntegerProperty getAgeProperty(BlockState state) {
-        return BURN_TIMER;
-    }
+
     default void tickI(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         int dist = getDistFromBlockstate(state);
         /*if (dist > 0) {

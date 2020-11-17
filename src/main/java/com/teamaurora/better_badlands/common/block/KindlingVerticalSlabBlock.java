@@ -21,15 +21,13 @@ import java.util.Random;
 
 @SuppressWarnings("deprecated")
 public class KindlingVerticalSlabBlock extends ThatchVerticalSlabBlock implements IKindling {
-    public static final IntegerProperty BURN_DISTANCE = IKindling.BURN_DISTANCE;
-    public static final IntegerProperty BURN_TIMER = IKindling.BURN_TIMER;
-    public static final BooleanProperty IS_BURNED = IKindling.IS_BURNED;
+
     public static final EnumProperty<VerticalSlabType> TYPE = VerticalSlabBlock.TYPE;
     public static final BooleanProperty WATERLOGGED = VerticalSlabBlock.WATERLOGGED;
 
     public KindlingVerticalSlabBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false)/*.with(BURN_TIMER, 0)*/.with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
+        this.setDefaultState(this.getDefaultState().with(BURN_DISTANCE, 0).with(IS_BURNED, false).with(TYPE, VerticalSlabBlock.VerticalSlabType.NORTH).with(WATERLOGGED, false));
     }
 
     @Override
