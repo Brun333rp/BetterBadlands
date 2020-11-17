@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/teamauroramods/BetterBadlands/issues"
 
 [[mods]]
     modId="better_badlands"
-    version="1.0.0"
+    version="${file.jarVersion}"
     displayName="Better Badlands"
     displayURL="https://discord.gg/BgE4EpP"
     logoFile="logo.png"
