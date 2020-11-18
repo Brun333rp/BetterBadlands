@@ -14,7 +14,7 @@ public class TwigParticle extends SpriteTexturedParticle {
         this.motionX *= 0.8F;
         this.motionY *= 0.8F;
         this.motionZ *= 0.8F;
-        this.motionY = this.rand.nextFloat() * 0.4F + 0.05F;
+        this.motionY = this.rand.nextFloat() * 0.15F + 0.05F;
         this.particleScale *= this.rand.nextFloat() * 2.0F + 0.2F;
         this.maxAge = (int)(16.0D / (Math.random() * 0.8D + 0.2D));
     }
