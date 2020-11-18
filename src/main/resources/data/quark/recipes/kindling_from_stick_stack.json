@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:dead_bush"
+      },
+      {
+        "item": "quark:stick_block"
+      }
+    ]
+  },
+  "result": {
+    "item": "better_badlands:kindling"
+  }
+}
