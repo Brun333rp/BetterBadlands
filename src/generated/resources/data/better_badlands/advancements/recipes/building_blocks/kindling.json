@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "better_badlands:kindling"
+    ]
+  },
+  "criteria": {
+    "has_kindling": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:dead_bush"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "better_badlands:kindling"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_kindling",
+      "has_the_recipe"
+    ]
+  ]
+}

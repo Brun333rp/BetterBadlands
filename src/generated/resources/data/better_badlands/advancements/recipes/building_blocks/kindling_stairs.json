@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "better_badlands:kindling_stairs"
+    ]
+  },
+  "criteria": {
+    "has_kindling_stairs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "better_badlands:kindling"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "better_badlands:kindling_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_kindling_stairs",
+      "has_the_recipe"
+    ]
+  ]
+}

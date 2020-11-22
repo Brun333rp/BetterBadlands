@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "better_badlands:kindling_slab"
+    ]
+  },
+  "criteria": {
+    "has_kindling_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "better_badlands:kindling"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "better_badlands:kindling_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_kindling_slab",
+      "has_the_recipe"
+    ]
+  ]
+}
