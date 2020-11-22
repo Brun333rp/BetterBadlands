@@ -12,7 +12,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "better_badlands:dead_bush_thatch_slab",
+                  "block": "better_badlands:kindling_vertical_slab",
                   "properties": {
                     "type": "double"
                   }
@@ -24,7 +24,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "better_badlands:dead_bush_thatch_slab"
+          "name": "better_badlands:kindling_vertical_slab"
         }
       ]
     }

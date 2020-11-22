@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "better_badlands:dead_bush_thatch_stairs"
+          "name": "better_badlands:kindling_stairs"
         }
       ],
       "conditions": [
