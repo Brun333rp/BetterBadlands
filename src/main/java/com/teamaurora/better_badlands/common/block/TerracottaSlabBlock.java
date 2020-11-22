@@ -17,10 +17,8 @@ public class TerracottaSlabBlock extends SlabBlock {
             int targetIndex = ItemStackUtils.findIndexOfItem(Items.DIORITE_SLAB, items);
             if (targetIndex != -1) {
                 items.add(targetIndex + 1, new ItemStack(this));
-            } else {
-                super.fillItemGroup(group, items);
             }
+            super.fillItemGroup(group, items);
         }
-
     }
 }

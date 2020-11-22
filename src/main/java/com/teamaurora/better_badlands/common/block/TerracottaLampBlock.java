@@ -10,6 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@SuppressWarnings("deprecation")
 public class TerracottaLampBlock extends Block {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
     public TerracottaLampBlock(Properties builder) {
