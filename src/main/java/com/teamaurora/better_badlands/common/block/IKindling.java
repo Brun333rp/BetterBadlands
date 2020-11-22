@@ -175,7 +175,9 @@ public interface IKindling {
                     fireFlag = true;
                 }
             }
-            worldIn.setBlockState(pos, state.with(getDistProperty(state),1));
+            if (fireFlag) {
+                worldIn.setBlockState(pos, state.with(getDistProperty(state), 1));
+            }
         }
     }
 
