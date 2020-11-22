@@ -16,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecated")
+@SuppressWarnings("deprecation")
 public class KindlingBlock extends ThatchBlock implements IKindling {
 
     public KindlingBlock(Properties properties) {

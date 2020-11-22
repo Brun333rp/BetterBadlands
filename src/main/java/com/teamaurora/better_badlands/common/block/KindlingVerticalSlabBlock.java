@@ -19,7 +19,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecated")
+@SuppressWarnings("deprecation")
 public class KindlingVerticalSlabBlock extends ThatchVerticalSlabBlock implements IKindling {
 
     public static final EnumProperty<VerticalSlabType> TYPE = VerticalSlabBlock.TYPE;
