@@ -40,6 +40,7 @@ public interface IKindling {
 
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
+
         for (Direction dir : Direction.values()) {
             if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.LAVA) {
                 flag = true;
@@ -167,6 +168,14 @@ public interface IKindling {
             } else {
                 worldIn.setBlockState(pos, state.with(getAgeProperty(state), age));
             }*/
+        } else {
+            boolean fireFlag = false;
+            for (Direction dir : Direction.values()) {
+                if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.FIRE) {
+                    fireFlag = true;
+                }
+            }
+            worldIn.setBlockState(pos, state.with(getDistProperty(state),1));
         }
     }
 
