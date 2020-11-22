@@ -17,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecated")
+@SuppressWarnings("deprecation")
 public class KindlingStairsBlock extends ThatchStairsBlock implements IKindling {
 
     public static final DirectionProperty FACING = StairsBlock.FACING;

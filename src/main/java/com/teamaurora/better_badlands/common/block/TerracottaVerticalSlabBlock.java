@@ -17,11 +17,9 @@ public class TerracottaVerticalSlabBlock extends VerticalSlabBlock {
             int targetIndex = ItemStackUtils.findIndexOfItem(Items.TERRACOTTA, items);
             if (targetIndex != -1) {
                 items.add(targetIndex + 1, new ItemStack(this));
-            } else {
-                super.fillItemGroup(group, items);
             }
+            super.fillItemGroup(group, items);
         }
-
     }
 
     private final byte superSecretByte = 5;

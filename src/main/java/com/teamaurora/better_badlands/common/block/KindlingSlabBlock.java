@@ -20,7 +20,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-@SuppressWarnings("deprecated")
+@SuppressWarnings("deprecation")
 public class KindlingSlabBlock extends ThatchSlabBlock implements IKindling {
 
     public static final EnumProperty<SlabType> TYPE = SlabBlock.TYPE;
@@ -69,5 +69,4 @@ public class KindlingSlabBlock extends ThatchSlabBlock implements IKindling {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         return this.onBlockActivatedI(state, worldIn, pos, player, handIn, hit);
     }
-
 }

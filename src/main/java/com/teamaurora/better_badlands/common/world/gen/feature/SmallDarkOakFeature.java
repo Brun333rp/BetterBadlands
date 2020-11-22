@@ -21,14 +21,17 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class SmallDarkOakFeature extends Feature<BaseTreeFeatureConfig> {
     public SmallDarkOakFeature(Codec<BaseTreeFeatureConfig> config) {
         super(config);
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public boolean func_230362_a_(ISeedReader worldIn, StructureManager manager, ChunkGenerator generator, Random rand, BlockPos position, BaseTreeFeatureConfig config) {
         int height = rand.nextInt(3) + 3;
         int splitHeight = rand.nextInt(height-2) + 2;
@@ -70,9 +73,7 @@ public class SmallDarkOakFeature extends Feature<BaseTreeFeatureConfig> {
                 if (!config.decorators.isEmpty()) {
                     logPos.sort(Comparator.comparingInt(Vector3i::getY));
                     leafPos.sort(Comparator.comparingInt(Vector3i::getY));
-                    config.decorators.forEach((decorator)->{
-                        decorator.func_225576_a_(worldIn, rand, logPos, leafPos, decSet, mutableBoundingBox);
-                    });
+                    config.decorators.forEach((decorator) -> decorator.func_225576_a_(worldIn, rand, logPos, leafPos, decSet, mutableBoundingBox));
                 }
                 return true;
             }
