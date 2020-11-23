@@ -40,11 +40,11 @@ public interface IKindling {
 
     default void onBlockAddedI(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         boolean flag = false;
-
         for (Direction dir : Direction.values()) {
             if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.LAVA) {
                 flag = true;
             }
+
         }
         if (flag) {
             worldIn.destroyBlock(pos, false);
@@ -56,13 +56,19 @@ public interface IKindling {
 
     default void neighborChangedI(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         boolean flag = false;
+        boolean fireFlag = false;
         for (Direction dir : Direction.values()) {
             if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.LAVA) {
                 flag = true;
+            } else if (worldIn.getBlockState(pos.offset(dir)).getBlock() == Blocks.FIRE) {
+                fireFlag = true;
             }
         }
         if (flag) {
             worldIn.destroyBlock(pos, false);
+        }
+        else if (fireFlag) {
+            worldIn.setBlockState(pos, state.with(getDistProperty(state), 1));
         }
         //super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
     }
