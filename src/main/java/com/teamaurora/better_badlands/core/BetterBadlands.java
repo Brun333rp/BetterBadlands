@@ -1,6 +1,6 @@
 package com.teamaurora.better_badlands.core;
 
-import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
+import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.teamaurora.better_badlands.core.other.BetterBadlandsData;
 import com.teamaurora.better_badlands.core.other.BetterBadlandsEvents;
 import com.teamaurora.better_badlands.client.ClientRegister;
@@ -29,9 +29,7 @@ public class BetterBadlands
     public BetterBadlands() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        REGISTRY_HELPER.getDeferredBlockRegister().register(eventBus);
-        REGISTRY_HELPER.getDeferredItemRegister().register(eventBus);
-        REGISTRY_HELPER.getDeferredEntityRegister().register(eventBus);
+        REGISTRY_HELPER.register(eventBus);
 
         BetterBadlandsFeatures.FEATURES.register(eventBus);
         BetterBadlandsParticles.PARTICLES.register(eventBus);

@@ -1,7 +1,6 @@
 package com.teamaurora.better_badlands.core.registry;
 
 import com.teamaurora.better_badlands.common.world.biome.BetterBadlandsBiomeFeatures;
-import com.teamaurora.better_badlands.common.world.gen.feature.SmallDarkOakFeature;
 import com.teamaurora.better_badlands.core.BetterBadlands;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -16,18 +15,19 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BetterBadlandsFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, BetterBadlands.MODID);
 
-    public static final RegistryObject<Feature<BaseTreeFeatureConfig>> SMALL_DARK_OAK_TREE = FEATURES.register("small_dark_oak_tree", ()->new SmallDarkOakFeature(BaseTreeFeatureConfig.field_236676_a_));
+    //public static final RegistryObject<Feature<BaseTreeFeatureConfig>> SMALL_DARK_OAK_TREE = FEATURES.register("small_dark_oak_tree", ()->new SmallDarkOakFeature(BaseTreeFeatureConfig.field_236676_a_));
 
     public static void generateFeatures() {
         ForgeRegistries.BIOMES.getValues().forEach(BetterBadlandsFeatures::generate);
     }
 
     public static void generate(Biome biome) {
-        if (biome.getRegistryName().toString().equals("minecraft:wooded_badlands_plateau") || biome.getRegistryName().toString().equals("minecraft:modified_wooded_badlands_plateau") || biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) {
+        /*if (biome.getRegistryName().toString().equals("minecraft:wooded_badlands_plateau") || biome.getRegistryName().toString().equals("minecraft:modified_wooded_badlands_plateau") || biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) {
             BetterBadlandsBiomeFeatures.replaceOakTrees(biome);
         }
         if (biome.getRegistryName().toString().equals("minecraft:wooded_badlands_plateau") || biome.getRegistryName().toString().equals("minecraft:modified_wooded_badlands_plateau")) {
             BetterBadlandsBiomeFeatures.addSparseDarkOakTrees(biome);
-        }
+        }*/
+        // TODO: worldgen shit
     }
 }

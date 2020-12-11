@@ -8,9 +8,6 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-plugins {
-    id "com.wynprice.cursemaven" version "2.1.1"
-}
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -33,6 +30,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
 
             mods {
                 better_badlands {
@@ -46,6 +44,7 @@ minecraft {
 
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
 
             mods {
                 better_badlands {
@@ -88,9 +87,15 @@ jar {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:abnormals-core:3017821")
-    implementation fg.deobf("curse.maven:buzzier-bees:3007348")
-    implementation fg.deobf("curse.maven:jei:2995910")
-    implementation fg.deobf("curse.maven:quark:3024740")
-    implementation fg.deobf("curse.maven:autoreglib:3017289")
+    implementation fg.deobf("curse.maven:abnormals-core-382216:3133295")
+    implementation fg.deobf("curse.maven:quark-243121:3135556")
+    implementation fg.deobf("curse.maven:autoreglib-250363:3128555")
+    //implementation fg.deobf("curse.maven:buzzier-bees:3007348")
+    //implementation fg.deobf("curse.maven:jei:2995910")
+}
+
+repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
 }

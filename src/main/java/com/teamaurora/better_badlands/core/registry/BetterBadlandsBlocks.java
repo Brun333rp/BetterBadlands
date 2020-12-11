@@ -1,6 +1,7 @@
 package com.teamaurora.better_badlands.core.registry;
 
-import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
+import com.minecraftabnormals.abnormals_core.core.util.registry.BlockSubRegistryHelper;
+import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.teamaurora.better_badlands.common.block.*;
 import com.teamaurora.better_badlands.core.BetterBadlands;
 import net.minecraft.block.AbstractBlock;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 @SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(modid = BetterBadlands.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BetterBadlandsBlocks {
-    public static final RegistryHelper HELPER = BetterBadlands.REGISTRY_HELPER;
+    public static final BlockSubRegistryHelper HELPER = BetterBadlands.REGISTRY_HELPER.getBlockSubHelper();
 
     public static final RegistryObject<Block> KINDLING = HELPER.createBlock("kindling", () -> new KindlingBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
     public static final RegistryObject<Block> KINDLING_SLAB = HELPER.createBlock("kindling_slab", () -> new KindlingSlabBlock(AbstractBlock.Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.HOE)), ItemGroup.BUILDING_BLOCKS);
