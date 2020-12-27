@@ -22,11 +22,5 @@ public class BetterBadlandsBiomeFeatures {
     public static BlockState DARK_OAK_LOG = Blocks.DARK_OAK_LOG.getDefaultState();
     public static BlockState DARK_OAK_LEAVES = Blocks.DARK_OAK_LEAVES.getDefaultState();
 
-    public static final BaseTreeFeatureConfig SMALL_DARK_OAK_CONFIG = (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(DARK_OAK_LOG), new SimpleBlockStateProvider(DARK_OAK_LEAVES), null, null, null)).func_236700_a_().build();
-
-    public static final BiomeFeatureModifier BADLANDS_TREE_MODIFIER = BiomeFeatureModifier.createFeatureReplacer(
-            BiomeModificationPredicates.forCategory(Biome.Category.MESA),
-            EnumSet.of(GenerationStage.Decoration.VEGETAL_DECORATION),
-            ()->Feature.TRE
-    )//fuck
+    public static final BaseTreeFeatureConfig SMALL_DARK_OAK_CONFIG = (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(DARK_OAK_LOG), new SimpleBlockStateProvider(DARK_OAK_LEAVES), null, null, null)).setIgnoreVines().build();
 }
