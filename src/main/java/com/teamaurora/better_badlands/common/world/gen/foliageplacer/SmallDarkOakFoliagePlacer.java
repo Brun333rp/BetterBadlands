@@ -31,8 +31,12 @@ public class SmallDarkOakFoliagePlacer extends FoliagePlacer {
     }); // CODEC
     // TODO: fix this bit
 
+    public SmallDarkOakFoliagePlacer(FeatureSpread p_i241997_1_, FeatureSpread p_i241997_2_) {
+        super(p_i241997_1_, p_i241997_2_);
+    }
+
     protected FoliagePlacerType<?> func_230371_a_() {
-        return BetterBadlandsFeatures.SMALL_DARK_OAK_FOL.get();
+        return FoliagePlacerType.ACACIA;
     } // getType()
 
     protected void func_230372_a_(IWorldGenerationReader worldIn, Random rand, BaseTreeFeatureConfig config, int trunkHeight, FoliagePlacer.Foliage treeNode, int foliageHeight, int radius, Set<BlockPos> leaf, int offset, MutableBoundingBox box) {
@@ -92,5 +96,23 @@ public class SmallDarkOakFoliagePlacer extends FoliagePlacer {
 
     protected final void setLogState(IWorldWriter worldIn, BlockPos pos, BlockState state) {
         worldIn.setBlockState(pos, state, 18);
+    }
+
+    public int func_230374_a_(Random random, int trunkHeight, BaseTreeFeatureConfig config) {
+        return 4;
+    }
+
+    protected boolean func_230373_a_(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
+        return y != 0 || !giantTrunk || dx != -radius && dx < radius || dz != -radius && dz < radius ? super.func_230375_b_(random, dx, y, dz, radius, giantTrunk) : true;
+    }
+
+    protected boolean func_230375_b_(Random random, int baseHeight, int dx, int y, int dz, boolean giantTrunk) {
+        if (dx == -1 && !giantTrunk) {
+            return baseHeight == dz && y == dz;
+        } else if (dx == 1) {
+            return baseHeight + y > dz * 2 - 2;
+        } else {
+            return false;
+        }
     }
 }

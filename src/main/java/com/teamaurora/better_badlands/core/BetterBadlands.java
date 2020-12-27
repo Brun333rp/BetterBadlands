@@ -41,7 +41,6 @@ public class BetterBadlands
         MinecraftForge.EVENT_BUS.register(new BetterBadlandsEvents());
         DeferredWorkQueue.runLater(() -> {
             BetterBadlandsData.registerFlammables();
-            BetterBadlandsFeatures.generateFeatures();
         });
     }
 }
