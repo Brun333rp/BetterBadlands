@@ -1,6 +1,5 @@
 package com.teamaurora.better_badlands.core.other;
 
-import com.teamaurora.better_badlands.common.world.biome.BetterBadlandsBiomeFeatures;
 import com.teamaurora.better_badlands.core.BetterBadlands;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsFeatures;
 import net.minecraft.block.BlockState;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = BetterBadlands.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BetterBadlands.MODID)
 public class BetterBadlandsEvents {
 
     @SubscribeEvent
@@ -35,7 +34,7 @@ public class BetterBadlandsEvents {
                 ) {
                     event.setResult(Event.Result.DENY);
                     world.setBlockState(pos, Blocks.AIR.getDefaultState());
-                    ConfiguredFeature<BaseTreeFeatureConfig, ?> configuredFeature = BetterBadlandsFeatures.SMALL_DARK_OAK_TREE.get().withConfiguration(BetterBadlandsBiomeFeatures.SMALL_DARK_OAK_CONFIG);
+                    ConfiguredFeature<BaseTreeFeatureConfig, ?> configuredFeature = BetterBadlandsFeatures.SMALL_DARK_OAK_TREE.get().withConfiguration(BetterBadlandsFeatures.Configs.SMALL_DARK_OAK_TREE_CONFIG);
                     if (!configuredFeature.generate(world, world.getChunkProvider().getChunkGenerator(), rand, pos)) {
                         world.setBlockState(pos, state);
                     }

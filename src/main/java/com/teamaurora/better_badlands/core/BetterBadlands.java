@@ -38,8 +38,8 @@ public class BetterBadlands
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(new BetterBadlandsEvents());
-        DeferredWorkQueue.runLater(() -> {
+        event.enqueueWork(() -> {
+            BetterBadlandsFeatures.Configured.registerConfiguredFeatures();
             BetterBadlandsData.registerFlammables();
         });
     }
