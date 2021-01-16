@@ -1,6 +1,6 @@
 package com.teamaurora.better_badlands.core.other;
 
-import com.teamabnormals.abnormals_core.core.utils.DataUtils;
+import com.minecraftabnormals.abnormals_core.core.util.DataUtil;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsBlocks;
 
 public class BetterBadlandsData {

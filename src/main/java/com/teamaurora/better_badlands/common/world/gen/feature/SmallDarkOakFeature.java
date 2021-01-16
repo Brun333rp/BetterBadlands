@@ -32,7 +32,7 @@ public class SmallDarkOakFeature extends Feature<BaseTreeFeatureConfig> {
 
     @Override
     @ParametersAreNonnullByDefault
-    public boolean func_230362_a_(ISeedReader worldIn, StructureManager manager, ChunkGenerator generator, Random rand, BlockPos position, BaseTreeFeatureConfig config) {
+    public boolean generate(ISeedReader worldIn, ChunkGenerator generator, Random rand, BlockPos position, BaseTreeFeatureConfig config) {
         int height = rand.nextInt(3) + 3;
         int splitHeight = rand.nextInt(height-2) + 2;
 
