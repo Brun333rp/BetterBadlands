@@ -1,11 +1,9 @@
 package com.teamaurora.better_badlands.common.world.gen.feature;
 
 import com.google.common.collect.Sets;
+import com.minecraftabnormals.abnormals_core.core.util.TreeUtil;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -39,41 +37,47 @@ public class SmallDarkOakFeature extends Feature<BaseTreeFeatureConfig> {
         int randDir = rand.nextInt(4);
         Direction direction = Direction.byHorizontalIndex(randDir);
 
-        boolean flag = true;
 
         if (position.getY() >= 1 && position.getY() + height + 2 <= worldIn.getHeight()) {
-            for (BlockPos pos : BlockPos.getAllInBoxMutable(position.add(-1, 1, -1), position.add(1, height, 1))) {
-                if (!isAirOrLeaves(worldIn, pos)) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (!isAirOrLeaves(worldIn, position)) flag = false;
-
-            if (!flag) {
-                return false;
-            }
-            else if (isValidGround(worldIn, position.down())) {
-                List<BlockPos> logPos = new ArrayList<>();
-                List<BlockPos> leafPos = new ArrayList<>();
-
-                setDirtAt(worldIn, position.down());
+            if (TreeUtil.isValidGround(worldIn, position.down(), (SaplingBlock) Blocks.DARK_OAK_SAPLING)) {
+                List<BlockPos> logs = new ArrayList<>();
+                List<BlockPos> leaves = new ArrayList<>();
 
                 for (BlockPos blockPos : BlockPos.getAllInBoxMutable(position, position.up(splitHeight))) {
-                    placeLogAt(worldIn, blockPos, rand, config, logPos);
+                    logs.add(new BlockPos(blockPos));
                 }
                 for (BlockPos blockPos : BlockPos.getAllInBoxMutable(position.offset(direction).up(splitHeight), position.offset(direction).up(height))) {
-                    placeLogAt(worldIn, blockPos, rand, config, logPos);
+                    logs.add(new BlockPos(blockPos));
                 }
-                placeLeavesAt(worldIn, position.offset(direction).up(height), direction, rand, config, leafPos);
+                placeLeavesAt(leaves, position.offset(direction).up(height), direction, rand);
+
+
+                List<BlockPos> leavesClean = cleanLeavesArray(leaves, logs);
+
+                boolean flag = true;
+                for (BlockPos log : logs) {
+                    if (!TreeUtil.isAirOrLeaves(worldIn, log)) {
+                        flag = false;
+                    }
+                }
+                if (!flag) return false;
+
+                TreeUtil.setDirtAt(worldIn, position.down());
+
+                for (BlockPos log : logs) {
+                    TreeUtil.placeLogAt(worldIn, log, rand, config);
+                }
+                for (BlockPos leaf : leavesClean) {
+                    TreeUtil.placeLeafAt(worldIn, leaf, rand, config);
+                }
 
                 Set<BlockPos> decSet = Sets.newHashSet();
                 MutableBoundingBox mutableBoundingBox = MutableBoundingBox.getNewBoundingBox();
 
                 if (!config.decorators.isEmpty()) {
-                    logPos.sort(Comparator.comparingInt(Vector3i::getY));
-                    leafPos.sort(Comparator.comparingInt(Vector3i::getY));
-                    config.decorators.forEach((decorator) -> decorator.func_225576_a_(worldIn, rand, logPos, leafPos, decSet, mutableBoundingBox));
+                    logs.sort(Comparator.comparingInt(Vector3i::getY));
+                    leaves.sort(Comparator.comparingInt(Vector3i::getY));
+                    config.decorators.forEach((decorator) -> decorator.func_225576_a_(worldIn, rand, logs, leaves, decSet, mutableBoundingBox));
                 }
                 return true;
             }
@@ -82,83 +86,50 @@ public class SmallDarkOakFeature extends Feature<BaseTreeFeatureConfig> {
         return false;
     }
 
-    private void placeLeavesAt(ISeedReader worldIn, BlockPos pos, Direction dir, Random rand, BaseTreeFeatureConfig config, List<BlockPos> leaf) {
+    private void placeLeavesAt(List<BlockPos> leaf, BlockPos pos, Direction dir, Random rand) {
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(-1,-1,-1), pos.add(1, 1, 1))) {
-            placeLeafAt(worldIn, blockPos, rand, config, leaf);
+            leaf.add(new BlockPos(blockPos));
         }
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(-2,0,-1),pos.add(-2,0,1))) {
-            placeLeafAt(worldIn, blockPos, rand, config, leaf);
+            leaf.add(new BlockPos(blockPos));
         }
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(2,0,-1),pos.add(2,0,1))) {
-            placeLeafAt(worldIn, blockPos, rand, config, leaf);
+            leaf.add(new BlockPos(blockPos));
         }
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(-1,0,-2),pos.add(1,0,-2))) {
-            placeLeafAt(worldIn, blockPos, rand, config, leaf);
+            leaf.add(new BlockPos(blockPos));
         }
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(-1,0,2),pos.add(1,0,2))) {
-            placeLeafAt(worldIn, blockPos, rand, config, leaf);
+            leaf.add(new BlockPos(blockPos));
         }
-        placeLeafAt(worldIn, pos.add(-2,1,0), rand, config, leaf);
-        placeLeafAt(worldIn, pos.add(2,1,0), rand, config, leaf);
-        placeLeafAt(worldIn, pos.add(0,1,-2), rand, config, leaf);
-        placeLeafAt(worldIn, pos.add(0,1,2), rand, config, leaf);
-        placeLeafAt(worldIn, pos.up(2), rand, config, leaf);
+        leaf.add(pos.add(-2,1,0));
+        leaf.add(pos.add(2,1,0));
+        leaf.add(pos.add(0,1,-2));
+        leaf.add(pos.add(0,1,2));
+        leaf.add(pos.up(2));
 
-        placeLeafAt(worldIn, pos.offset(dir, 3), rand, config, leaf);
-        placeRandomLeafAt(worldIn, pos.up(2).offset(dir), rand, config, leaf);
+        leaf.add(pos.offset(dir, 3));
+        placeRandomLeafAt(pos.up(2).offset(dir), rand, leaf);
 
         for (BlockPos blockPos : BlockPos.getAllInBoxMutable(pos.add(-1,0,-1).offset(dir,2), pos.add(1,0,1).offset(dir,2))) {
-            placeRandomLeafAt(worldIn, blockPos, rand, config, leaf);
+            placeRandomLeafAt(new BlockPos(blockPos), rand, leaf);
         }
-        placeRandomLeafAt(worldIn, pos.down().offset(dir,-2),rand,config,leaf);
+        placeRandomLeafAt(pos.down().offset(dir,-2),rand,leaf);
     }
 
-    private void placeLogAt(IWorldWriter worldIn, BlockPos pos, Random rand, BaseTreeFeatureConfig config, List<BlockPos> log) {
-        this.setLogState(worldIn, pos, config.trunkProvider.getBlockState(rand, pos));
-        log.add(pos);
-    }
-
-    private void placeRandomLeafAt(IWorldGenerationReader world, BlockPos pos, Random rand, BaseTreeFeatureConfig config, List<BlockPos> leaf) {
+    private void placeRandomLeafAt(BlockPos pos, Random rand, List<BlockPos> leaf) {
         if (rand.nextBoolean()) {
-            placeLeafAt(world, pos, rand, config, leaf);
-        }
-    }
-
-    private void placeLeafAt(IWorldGenerationReader world, BlockPos pos, Random rand, BaseTreeFeatureConfig config, List<BlockPos> leaf) {
-        if (isAirOrLeaves(world, pos)) {
-            this.setLogState(world, pos, config.leavesProvider.getBlockState(rand, pos).with(LeavesBlock.DISTANCE, 1));
             leaf.add(pos);
         }
     }
 
-    protected final void setLogState(IWorldWriter worldIn, BlockPos pos, BlockState state) {
-        worldIn.setBlockState(pos, state, 18);
-    }
-
-    public static boolean isAir(IWorldGenerationBaseReader worldIn, BlockPos pos) {
-        if (!(worldIn instanceof IBlockReader)) {
-            return worldIn.hasBlockState(pos, BlockState::isAir);
+    private List<BlockPos> cleanLeavesArray(List<BlockPos> leaves, List<BlockPos> logs) {
+        List<BlockPos> newLeaves = new ArrayList<>();
+        for (BlockPos leaf : leaves) {
+            if (!logs.contains(leaf)) {
+                newLeaves.add(leaf);
+            }
         }
-        else {
-            return worldIn.hasBlockState(pos, state -> state.isAir((IBlockReader) worldIn, pos));
-        }
-    }
-
-    public static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
-        if (worldIn instanceof IWorldReader) {
-            return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((IWorldReader) worldIn, pos));
-        }
-        return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES));
-    }
-
-    public static void setDirtAt(IWorld worldIn, BlockPos pos) {
-        Block block = worldIn.getBlockState(pos).getBlock();
-        if (block == Blocks.GRASS_BLOCK || block == Blocks.FARMLAND) {
-            worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState(), 16);
-        }
-    }
-
-    public static boolean isValidGround(IWorld world, BlockPos pos) {
-        return world.getBlockState(pos).canSustainPlant(world, pos, Direction.UP, (IPlantable) Blocks.DARK_OAK_SAPLING);
+        return newLeaves;
     }
 }
