@@ -1,0 +1,27 @@
+{
+  "_comment": "Strzecha z uschniętych krzaków",
+  "block.better_badlands.kindling": "Podpałka",
+  "block.better_badlands.kindling_slab": "Podpałkowa płyta",
+  "block.better_badlands.kindling_stairs": "Podpałkowe schody",
+  "block.better_badlands.kindling_vertical_slab": "Pionowa podpałkowa płyta",
+
+  "_comment1": "Terakotowe lampy",
+  "block.better_badlands.light_source": "Źródło światła",
+  "block.better_badlands.terracotta_lamp": "Terakotowa lampa",
+  "block.better_badlands.black_terracotta_lamp": "Czarna terakotowa lampa",
+  "block.better_badlands.red_terracotta_lamp": "Czerwona terakotowa lampa",
+  "block.better_badlands.green_terracotta_lamp": "Zielona terakotowa lampa",
+  "block.better_badlands.brown_terracotta_lamp": "Brązowa terakotowa lampa",
+  "block.better_badlands.blue_terracotta_lamp": "Niebieska terakotowa lampa",
+  "block.better_badlands.purple_terracotta_lamp": "Fioletowa terakotowa lampa",
+  "block.better_badlands.cyan_terracotta_lamp": "Błękitna terakotowa lampa",
+  "block.better_badlands.light_gray_terracotta_lamp": "Jasnoszara terakotowa lampa",
+  "block.better_badlands.gray_terracotta_lamp": "Szara terakotowa lampa",
+  "block.better_badlands.pink_terracotta_lamp": "Różowy terakotowa lampa",
+  "block.better_badlands.lime_terracotta_lamp": "Jasnozielona terakotowa lampa",
+  "block.better_badlands.yellow_terracotta_lamp": "Żółta terakotowa lampa",
+  "block.better_badlands.light_blue_terracotta_lamp": "Jasnoniebieska terakotowa lampa",
+  "block.better_badlands.magenta_terracotta_lamp": "Karmazynowa terakotowa lampa",
+  "block.better_badlands.orange_terracotta_lamp": "Pomarańczowa terakotowa lampa",
+  "block.better_badlands.white_terracotta_lamp": "Biała terakotowa lampa"
+}
