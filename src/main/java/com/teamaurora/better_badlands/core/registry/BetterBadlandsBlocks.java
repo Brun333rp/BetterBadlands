@@ -3,10 +3,9 @@ package com.teamaurora.better_badlands.core.registry;
 import com.minecraftabnormals.abnormals_core.core.util.registry.BlockSubRegistryHelper;
 import com.minecraftabnormals.abnormals_core.core.util.registry.RegistryHelper;
 import com.teamaurora.better_badlands.common.block.*;
+import com.teamaurora.better_badlands.common.block.trees.SaguaroCactusTree;
 import com.teamaurora.better_badlands.core.BetterBadlands;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
@@ -43,4 +42,13 @@ public class BetterBadlandsBlocks {
     public static final RegistryObject<Block> MAGENTA_TERRACOTTA_LAMP = HELPER.createBlock("magenta_terracotta_lamp", ()->new TerracottaLampBlock(AbstractBlock.Properties.from(Blocks.TERRACOTTA)), ItemGroup.DECORATIONS);
     public static final RegistryObject<Block> ORANGE_TERRACOTTA_LAMP = HELPER.createBlock("orange_terracotta_lamp", ()->new TerracottaLampBlock(AbstractBlock.Properties.from(Blocks.TERRACOTTA)), ItemGroup.DECORATIONS);
     public static final RegistryObject<Block> WHITE_TERRACOTTA_LAMP = HELPER.createBlock("white_terracotta_lamp", ()->new TerracottaLampBlock(AbstractBlock.Properties.from(Blocks.TERRACOTTA)), ItemGroup.DECORATIONS);
+
+    // saguaro cactus
+    public static final RegistryObject<Block> SAGUARO_CACTUS = HELPER.createBlock("saguaro_cactus", ()->new SaguaroCactusBlock(Block.Properties.from(Blocks.CACTUS)), ItemGroup.DECORATIONS);
+    public static final RegistryObject<Block> SMALL_SAGUARO_CACTUS = HELPER.createBlock("small_saguaro_cactus", ()->new SmallSaguaroCactusBlock(AbstractBlock.Properties.from(Blocks.CACTUS)), ItemGroup.DECORATIONS);
+    public static final RegistryObject<Block> SAGUARO_SPROUT = HELPER.createBlockNoItem("saguaro_sprout", ()->new SaguaroSproutBlock(new SaguaroCactusTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING).sound(SoundType.CLOTH)));
+    public static final RegistryObject<Block> SAGUARO_FLOWER = HELPER.createBlockNoItem("saguaro_flower", ()->new SaguaroFlowerBlock(AbstractBlock.Properties.from(Blocks.OXEYE_DAISY)));
+    public static final RegistryObject<Block> POTTED_SAGUARO_SPROUT = HELPER.createBlockNoItem("potted_saguaro_sprout", ()->new FlowerPotBlock(SAGUARO_SPROUT.get(), Block.Properties.from(Blocks.POTTED_ALLIUM)));
+
+
 }

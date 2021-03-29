@@ -27,6 +27,10 @@ public class ClientRegister {
         RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_SLAB.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_STAIRS.get(), RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.KINDLING_VERTICAL_SLAB.get(), RenderType.getCutoutMipped());
+
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.SAGUARO_SPROUT.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.POTTED_SAGUARO_SPROUT.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BetterBadlandsBlocks.SAGUARO_FLOWER.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent

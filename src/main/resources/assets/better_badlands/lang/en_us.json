@@ -23,5 +23,28 @@
   "block.better_badlands.light_blue_terracotta_lamp": "Light Blue Terracotta Lamp",
   "block.better_badlands.magenta_terracotta_lamp": "Magenta Terracotta Lamp",
   "block.better_badlands.orange_terracotta_lamp": "Orange Terracotta Lamp",
-  "block.better_badlands.white_terracotta_lamp": "White Terracotta Lamp"
+  "block.better_badlands.white_terracotta_lamp": "White Terracotta Lamp",
+
+  "_comment2": "Saguaro Cactus",
+  "block.better_badlands.saguaro_cactus": "Saguaro Cactus",
+  "block.better_badlands.small_saguaro_cactus": "Small Saguaro Cactus",
+  "block.better_badlands.saguaro_sprout": "Saguaro Sprout",
+  "block.better_badlands.potted_saguaro_sprout": "Potted Saguaro Sprout",
+  "block.better_badlands.saguaro_flower": "Saguaro Flower",
+  "item.better_badlands.saguaro_flower": "Saguaro Flower",
+  "effect.better_badlands.succumbing": "Succumbing",
+
+  "_comment3": "Potions",
+  "item.minecraft.potion.effect.succumbing": "Potion of Succumbing",
+  "item.minecraft.potion.effect.succumbing_strong": "Potion of Succumbing",
+  "item.minecraft.potion.effect.succumbing_long": "Potion of Succumbing",
+  "item.minecraft.splash_potion.effect.succumbing": "Splash Potion of Succumbing",
+  "item.minecraft.splash_potion.effect.succumbing_strong": "Splash Potion of Succumbing",
+  "item.minecraft.splash_potion.effect.succumbing_long": "Splash Potion of Succumbing",
+  "item.minecraft.lingering_potion.effect.succumbing": "Lingering Potion of Succumbing",
+  "item.minecraft.lingering_potion.effect.succumbing_strong": "Lingering Potion of Succumbing",
+  "item.minecraft.lingering_potion.effect.succumbing_long": "Lingering Potion of Succumbing",
+  "item.minecraft.tipped_arrow.effect.succumbing": "Arrow of Succumbing",
+  "item.minecraft.tipped_arrow.effect.succumbing_strong": "Arrow of Succumbing",
+  "item.minecraft.tipped_arrow.effect.succumbing_long": "Arrow of Succumbing"
 }

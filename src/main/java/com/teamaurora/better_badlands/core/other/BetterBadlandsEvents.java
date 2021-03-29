@@ -1,19 +1,25 @@
 package com.teamaurora.better_badlands.core.other;
 
 import com.teamaurora.better_badlands.core.BetterBadlands;
+import com.teamaurora.better_badlands.core.registry.BetterBadlandsEffects;
 import com.teamaurora.better_badlands.core.registry.BetterBadlandsFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.SaplingGrowTreeEvent;
@@ -61,6 +67,15 @@ public class BetterBadlandsEvents {
                 event.getWorld().playSound(null, posIn, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 event.getWorld().setBlockState(posIn, Blocks.DEAD_BUSH.getDefaultState());
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingEntityDamage(LivingDamageEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity.isPotionActive(BetterBadlandsEffects.SUCCUMBING.get()) && event.getSource() != DamageSource.MAGIC) {
+            int amplifier = entity.getActivePotionEffect(BetterBadlandsEffects.SUCCUMBING.get()).getAmplifier();
+            entity.addPotionEffect(new EffectInstance(Effects.POISON, 100 + 25 * amplifier, 0, false, false, false));
         }
     }
 }
