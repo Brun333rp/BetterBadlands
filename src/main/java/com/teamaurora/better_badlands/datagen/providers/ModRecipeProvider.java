@@ -57,8 +57,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         this.shapedRecipeWithCriterion(KINDLING_STAIRS.get(), KINDLING.get(), 4)
-                .patternLine("  #")
-                .patternLine(" ##")
+                .patternLine("#  ")
+                .patternLine("##")
                 .patternLine("###")
                 .key('#', KINDLING.get())
                 .build(consumer);
